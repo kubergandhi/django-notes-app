@@ -1,4 +1,4 @@
-pipeline {
+vpipeline {
     agent any 
     
     stages{ 
@@ -12,8 +12,8 @@ pipeline {
             steps {
                 echo "Pushing the image to docker hub"
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
-                sh "docker tag my-note-app ${dockerHubUser}/my-note-app:latest"
-                sh "docker login -u ${dockerHubUser} -p ${dockerHubPass}"
+                sh "docker tag my-note-app ${env.dockerHubUser}/my-note-app:latest"
+                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
                 sh "docker push ${dockerHubUser}/my-note-app:latest"
                 }
             }
